@@ -3,6 +3,7 @@ package ru.hh.security.repository;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+import ru.hh.security.model.Vacancy;
 
 @Repository
 public class VacancyRepository {
@@ -13,9 +14,9 @@ public class VacancyRepository {
     this.entityManager = entityManager;
   }
 
-  public List getVacanciesByTitle(String title) {
-    return entityManager
-        .createNativeQuery("SELECT * FROM vacancies WHERE title ILIKE '%" + title + "%'")
+  public List<Vacancy> getVacanciesByTitle(String title) {
+    return entityManager.createQuery("FROM Vacancy v WHERE lower(v.title) LIKE ?1", Vacancy.class)
+        .setParameter(1, '%' + title.toLowerCase() + '%')
         .getResultList();
   }
 }
