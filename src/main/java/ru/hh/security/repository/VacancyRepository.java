@@ -1,9 +1,8 @@
 package ru.hh.security.repository;
 
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
 import java.util.List;
+import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class VacancyRepository {
@@ -15,6 +14,8 @@ public class VacancyRepository {
   }
 
   public List getVacanciesByTitle(String title) {
-    return entityManager.createNativeQuery("SELECT * FROM vacancies WHERE title ILIKE '%" + title + "%'").getResultList();
+    return entityManager
+        .createNativeQuery("SELECT * FROM vacancies WHERE title ILIKE '%" + title + "%'")
+        .getResultList();
   }
 }
